@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies & build docs
         run: |
-          pip install mkdocs mkdocs-material pymdown-extensions
+          pip install mkdocs mkdocs-material pymdown-extensions mkdocs-with-pdf
           mkdocs build
 
       - name: Upload GitHub Pages artifact

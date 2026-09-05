@@ -461,7 +461,7 @@ body, html, .md-typeset, .md-nav, .md-header {
   box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2) !important;
 }
 
-/* Hide inner page anchor links (1.1, 1.2, 3.1, etc.) while keeping all category sections & chapter pages (1-16) visible */
-.md-sidebar--primary a.md-nav__link[href*="#"] {
-  display: none !important;
+/* Ensure primary sidebar navigation links are fully visible */
+.md-sidebar--primary a.md-nav__link {
+  display: flex !important;
 }

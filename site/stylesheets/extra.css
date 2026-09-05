@@ -1,0 +1,182 @@
+/* FontAwesome Icon Support */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+
+/* Root Palette Tokens */
+:root {
+  --md-primary-fallback-color: #0f172a;
+  --md-accent-fallback-color: #2563eb;
+}
+
+/* Fixed, Stable Header Navigation */
+.md-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  background-color: #0f172a !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04) !important;
+  transition: none !important;
+}
+
+.md-header[data-md-state="shadow"] {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.md-header__title {
+  font-weight: 700 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Headings Styling: Bold, Prominent, Premium Typography */
+.md-typeset h1 {
+  font-weight: 800 !important;
+  font-size: 2.2rem !important;
+  line-height: 1.25 !important;
+  color: #0f172a;
+  border-bottom: 3px solid #2563eb;
+  padding-bottom: 0.4rem;
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h2 {
+  font-weight: 750 !important;
+  font-size: 1.6rem !important;
+  line-height: 1.3 !important;
+  color: #1e293b;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.35rem;
+  margin-top: 1.6em;
+  margin-bottom: 0.65em;
+}
+
+.md-typeset h3 {
+  font-weight: 700 !important;
+  font-size: 1.3rem !important;
+  line-height: 1.35 !important;
+  color: #1e40af;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+
+.md-typeset h4 {
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  color: #334155;
+  margin-top: 1.2em;
+}
+
+/* Enhanced Table Styling */
+.md-typeset table:not([class]) {
+  font-size: 0.85rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+}
+
+.md-typeset table:not([class]) th {
+  background-color: #f1f5f9;
+  color: #0f172a;
+  font-weight: 750 !important;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 10px 14px;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 10px 14px;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Rounded Edge Mermaid Diagram Styles */
+.mermaid {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 1.4em 0;
+  text-align: center;
+  overflow-x: auto;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .node path,
+.mermaid .label-container {
+  rx: 14px !important;
+  ry: 14px !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Dedicated Print & PDF Layout Optimizations */
+@page {
+  size: A4;
+  margin: 15mm 15mm 15mm 15mm;
+}
+
+@media print {
+  body {
+    font-size: 10.5pt !important;
+    line-height: 1.45 !important;
+    color: #111827 !important;
+    background: #ffffff !important;
+  }
+
+  .md-header, .md-sidebar, .md-footer, .md-nav, .md-top {
+    display: none !important;
+  }
+
+  .md-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+    margin-top: 1.2em !important;
+    margin-bottom: 0.4em !important;
+  }
+
+  h1 { font-size: 18pt !important; border-bottom: 2pt solid #2563eb !important; }
+  h2 { font-size: 14pt !important; border-bottom: 1pt solid #cbd5e1 !important; }
+  h3 { font-size: 12pt !important; }
+
+  p, li, table, pre, blockquote, .mermaid {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  table {
+    font-size: 9pt !important;
+    margin: 10px 0 !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+  }
+
+  th, td {
+    padding: 6px 8px !important;
+  }
+
+  pre, code {
+    font-size: 8.5pt !important;
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+    padding: 8px !important;
+  }
+
+  .mermaid {
+    border: 1px solid #cbd5e1 !important;
+    padding: 12px !important;
+    margin: 12px 0 !important;
+    max-width: 100% !important;
+  }
+}

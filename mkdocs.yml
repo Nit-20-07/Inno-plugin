@@ -1,0 +1,91 @@
+# UNIVA Module System & Installer Engine Documentation Setup
+site_name: UNIVA Module System & Installer Engine Specification
+site_description: 100% Declarative Engine Architecture & Developer Guide
+site_author: UNIVA Core Architecture Team
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+  features:
+    - navigation.indexes
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - toc.integrate
+    - content.code.copy
+    - content.code.annotate
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://unpkg.com/mermaid@10/dist/mermaid.min.js
+  - javascripts/mermaid-init.js
+
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - tables
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.smartsymbols
+  - attr_list
+  - md_in_html
+
+plugins:
+  - search
+  - with-pdf:
+      author: UNIVA Core Architecture Team
+      copyright: UNIVA Systems
+      cover: true
+      cover_title: UNIVA Module System & Installer Engine
+      cover_subtitle: Specification & Developer Guide
+      toc_title: Table of Contents
+      output_path: pdf/UNIVA-Module-Developer-Guide.pdf
+      enabled_if_env: ENABLE_PDF_EXPORT
+
+nav:
+  - Architecture & Core:
+    - 1. Executive Overview: 01-architecture-overview.md
+    - 2. Module Types: 02-module-types.md
+    - 3. Declarative Folder Structure: 03-folder-structure.md
+    - 4. 5-Engine Installer Orchestration: 04-installer-orchestration.md
+  - Five-Engine Specifications:
+    - 5. Engine 1 — Manifest Spec: 05-engine-1-manifest.md
+    - 6. Engine 2 — Database Engine: 06-engine-2-database.md
+    - 7. Engine 3 — Integration Engine: 07-engine-3-integration.md
+    - 8. Engine 4 — Security Engine: 08-engine-4-security.md
+    - 9. Engine 5 — UI Engine: 09-engine-5-ui.md
+  - Operations & Mechanics:
+    - 10. Lifecycle & Migrations: 10-lifecycle-migrations.md
+    - 11. System Visual Diagrams: 11-system-diagrams.md
+    - 12. Complete Case Studies: 12-case-studies.md
+  - Reference & Guides:
+    - 13. REST API Reference: 13-api-reference.md
+    - 14. Developer Workflow: 14-developer-workflow.md
+    - 15. Cheatsheet & CLI: 15-cheatsheet.md
+  - Security & Gap Analysis:
+    - 16. Gap Analysis & Resolution Matrix: 16-gap-analysis.md

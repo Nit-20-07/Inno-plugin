@@ -1,0 +1,19 @@
+{
+  "name": "univa-module-system-docs",
+  "version": "1.0.0",
+  "description": "MkDocs Documentation and PDF Generator for UNIVA Module System",
+  "scripts": {
+    "docs:serve": "mkdocs serve -a localhost:8000",
+    "docs:build": "mkdocs build",
+    "docs:pdf": "cross-env ENABLE_PDF_EXPORT=1 mkdocs build",
+    "pdf:generate-html": "node generate-pdf-html.js"
+  },
+  "keywords": [
+    "mkdocs",
+    "univa",
+    "pdf-generator",
+    "documentation"
+  ],
+  "author": "UNIVA Team",
+  "license": "ISC"
+}

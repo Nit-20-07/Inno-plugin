@@ -1,0 +1,1433 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="100% Declarative Engine Architecture & Developer Guide">
+      
+      
+        <meta name="author" content="UNIVA Core Architecture Team">
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../02-module-types/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>1. Executive Overview - UNIVA Module System & Installer Engine Specification</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-executive-overview-architectural-core-principles" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="UNIVA Module System &amp; Installer Engine Specification" class="md-header__button md-logo" aria-label="UNIVA Module System & Installer Engine Specification" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            UNIVA Module System & Installer Engine Specification
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1. Executive Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="UNIVA Module System &amp; Installer Engine Specification" class="md-nav__button md-logo" aria-label="UNIVA Module System & Installer Engine Specification" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    UNIVA Module System & Installer Engine Specification
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture & Core
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture & Core
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Executive Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11-the-100-declarative-engine-vision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 The 100% Declarative Engine Vision
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-the-no-arbitrary-executable-code-in-modules-guarantee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 The "No Arbitrary Executable Code in Modules" Guarantee
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-zero-preinstalled-tables-engine-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3 Zero-Preinstalled-Tables Engine Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-frontend-live-rendering-no-swap-no-rebuild-paradigm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4 Frontend Live-Rendering ("No Swap / No Rebuild") Paradigm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-system-component-blueprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5 System Component Blueprint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-engine-implementation-maturity-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6 Engine Implementation Maturity Matrix
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-sql-identifier-validation-injection-defense" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7 SQL Identifier Validation &amp; Injection Defense
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-where-does-business-logic-live-in-univa-modules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8 Where Does Business Logic Live in UNIVA Modules?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-code-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Command Line Code Reference
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-module-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Module Types
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-installer-orchestration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. 5-Engine Orchestration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-folder-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Folder Structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Five-Engine Specifications
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Five-Engine Specifications
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-engine-1-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine 1 — Manifest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-engine-2-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine 2 — Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-engine-3-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine 3 — Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-engine-4-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine 4 — Security
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-engine-5-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Engine 5 — UI & Views
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Operations & Mechanics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Operations & Mechanics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-lifecycle-migrations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Lifecycle & Migrations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-system-diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. System Visual Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-case-studies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Complete Case Studies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference & Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference & Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-api-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. REST API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-developer-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    14. Developer Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    15. Cheatsheet & CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deep Dives & Gaps
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Deep Dives & Gaps
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-gap-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    16. Architecture & Gap Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="1-executive-overview-architectural-core-principles">1. Executive Overview &amp; Architectural Core Principles</h1>
+<h2 id="11-the-100-declarative-engine-vision">1.1 The 100% Declarative Engine Vision</h2>
+<p>The UNIVA Module System solves the classic enterprise extension dilemma: how to allow third-party developers, custom domain builders, or tenant organizations to extend software capabilities <strong>without introducing arbitrary code execution vulnerabilities, platform instability, or complex deployment rebuild cycles</strong>.</p>
+<p>In traditional monolithic extensions (such as unvetted Python plugins), plugins execute arbitrary server code in the host process. If a plugin crashes, memory leaks, or contains security exploits, the entire host application suffers.</p>
+<p>UNIVA replaces arbitrary plugin code with a <strong>100% Declarative Engine Architecture</strong>. Modules do not supply executable backend code; instead, they supply structured JSON manifests, database field specifications, security matrices, UI view definitions, and contract declarations. The <strong>UNIVA Installer Engine</strong> reads, validates, and materializes these declarations using standardized system primitives built directly into the host platform.</p>
+<hr />
+<h2 id="12-the-no-arbitrary-executable-code-in-modules-guarantee">1.2 The "No Arbitrary Executable Code in Modules" Guarantee</h2>
+<p>Under UNIVA rules, <strong>modules never ship unvetted executable logic in the backend process</strong>.</p>
+<ul>
+<li><strong>Database Schema</strong>: Created via fixed DDL generators driven by <code>models/*.json</code>.</li>
+<li><strong>Security Policies</strong>: Seeded into system RBAC/ABAC tables driven by <code>security/access.json</code>.</li>
+<li><strong>Cross-Module Behavior</strong>: Executed via named, versioned integration function contracts (<code>integrations/uses.json</code> and <code>functions/exposes.json</code>) dispatched through the host's controlled <code>FunctionRegistry</code>.</li>
+<li><strong>UI Customization</strong>: Rendered dynamically via standard layout renderers, or loaded as static CSS/JS bundles inside sandboxed <code>&lt;iframe sandbox="allow-scripts"&gt;</code> containers using the browser <code>postMessage</code> protocol.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Security Policies &amp; Role Ownership Boundary</p>
+<p>A module's <code>security/access.json</code> should only ever seed access rules that reference existing permission points — which models, fields, and features a role may touch. Roles themselves — their creation, and which real user account holds which role — are owned entirely by the platform's user-management system (<code>app_user</code>, <code>role</code>, <code>user_role</code>). A module declares <em>what can be granted</em>; only the platform decides <em>who it's granted to</em>.</p>
+</div>
+<hr />
+<h2 id="13-zero-preinstalled-tables-engine-architecture">1.3 Zero-Preinstalled-Tables Engine Architecture</h2>
+<p>The host application starts up with <strong>0 pre-installed domain tables</strong>. System tables (<code>account</code>, <code>app_user</code>, <code>module_catalog</code>, <code>account_module_install</code>, <code>sys_model</code>, <code>sys_field</code>, <code>role</code>, <code>user_role</code>, <code>role_model_access</code>) form the core infrastructure platform.</p>
+<p>When a tenant admin clicks "Install" on a module (e.g. <code>farms</code> or <code>invoicing</code>):</p>
+<ol>
+<li>The engine reads the declarative definitions from the module folder.</li>
+<li>The Database Engine creates physical SQL tables (<code>mod_farms_farm</code>, <code>mod_invoicing_invoice</code>).</li>
+<li>The Security Engine seeds tenant roles and access control rules.</li>
+<li>The UI Engine registers view schemas into <code>sys_view</code>.</li>
+<li>The sidebar menu updates dynamically without restarting the server or refreshing the frontend bundle.</li>
+</ol>
+<hr />
+<h2 id="14-frontend-live-rendering-no-swap-no-rebuild-paradigm">1.4 Frontend Live-Rendering ("No Swap / No Rebuild") Paradigm</h2>
+<p>Installing or upgrading a module requires <strong>zero frontend rebuilds or Webpack/Vite compiles</strong>.</p>
+<p>The frontend application contains a generic, dynamic rendering engine (<code>DynamicModulePage.jsx</code>). When a user accesses a module route, the frontend fetches view specifications from the installer service (<code>/api/modules/:module_name/views</code>). The renderer dynamically generates tables, action buttons, progress bars, status badges, and modal forms directly from metadata.</p>
+<p>If a module includes custom UI components (<code>views/assets/widget.js</code>), the frontend loads those assets inside an isolated <code>&lt;iframe&gt;</code> element. The iframe communicates with the parent app strictly via structured JSON messages (<code>postMessage</code>), ensuring custom UI widgets cannot directly access local storage, authentication tokens, or global window variables.</p>
+<hr />
+<h2 id="15-system-component-blueprint">1.5 System Component Blueprint</h2>
+<p>The system architecture is decoupled into distinct component layers:</p>
+<table>
+<thead>
+<tr>
+<th>Component Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UNIVA Installer Engine</strong></td>
+<td>5-Engine Installer, Data REST APIs, Function Registry, System Tables (<code>sys_model</code>/<code>sys_field</code>).</td>
+</tr>
+<tr>
+<td><strong>Dynamic UI Renderer</strong></td>
+<td>Dynamic Module Views (<code>DynamicModulePage.jsx</code>), Sandboxed IFrame Host (<code>postMessage</code> protocol).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="16-engine-implementation-maturity-matrix">1.6 Engine Implementation Maturity Matrix</h2>
+<p>To maintain transparency as the platform evolves, the following matrix tracks the implementation status of each engine:</p>
+<table>
+<thead>
+<tr>
+<th>Engine Component</th>
+<th>Implementation Status</th>
+<th>Current Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Engine 1 — Manifest Engine</strong></td>
+<td><strong>Implemented</strong></td>
+<td>Manifest parsing, SemVer checks, prerequisite verification, <code>requires_integration</code> checks.</td>
+</tr>
+<tr>
+<td><strong>Engine 2 — Database Engine</strong></td>
+<td><strong>Implemented</strong></td>
+<td>Safe DDL generation, <code>sys_model</code>/<code>sys_field</code> registration, partial unique indexes (<code>WHERE deleted_at IS NULL</code>).</td>
+</tr>
+<tr>
+<td><strong>Engine 3 — Integration Engine</strong></td>
+<td><strong>Implemented</strong></td>
+<td>Phase 2 Foreign Keys (<code>sys_field_relation</code>), namespaced target resolution (<code>module.model</code>), <code>FunctionRegistry</code> dispatcher.</td>
+</tr>
+<tr>
+<td><strong>Engine 4 — Security Engine</strong></td>
+<td><strong>Implemented</strong></td>
+<td>Role seeding, <code>role_model_access</code> CRUD matrices, <code>role_field_access</code> rules, ABAC row-level filters (<code>role_record_rule</code>).</td>
+</tr>
+<tr>
+<td><strong>Engine 5 — UI Engine</strong></td>
+<td><strong>Implemented</strong></td>
+<td><code>views/*.json</code> registration, fallback auto-generator, static asset manifest, sandboxed IFrame <code>postMessage</code> protocol.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="17-sql-identifier-validation-injection-defense">1.7 SQL Identifier Validation &amp; Injection Defense</h2>
+<p>To prevent SQL injection vulnerabilities when building DDL dynamically (<code>ALTER TABLE</code>, <code>ADD CONSTRAINT</code>, <code>CREATE INDEX</code>), the engine enforces strict regex validation on all SQL identifiers prior to DDL string interpolation.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">IDENTIFIER_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;^[a-z0-9_]{1,63}$&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">InvalidIdentifierError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="k">pass</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">assert_safe_identifier</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">kind</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;identifier&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Raise InvalidIdentifierError if value is not a safe SQL identifier. Returns value unchanged if safe.&quot;&quot;&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">IDENTIFIER_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="k">raise</span> <span class="n">InvalidIdentifierError</span><span class="p">(</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="sa">f</span><span class="s2">&quot;Invalid </span><span class="si">{</span><span class="n">kind</span><span class="si">}</span><span class="s2"> &#39;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&#39;: must match regex ^[a-z0-9_]</span><span class="se">{{</span><span class="s2">1,63</span><span class="se">}}</span><span class="s2">$&quot;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>        <span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="k">return</span> <span class="n">value</span>
+</code></pre></div>
+<p>Every database operation splices identifiers ONLY after passing through <code>assert_safe_identifier()</code>.</p>
+<hr />
+<h2 id="18-where-does-business-logic-live-in-univa-modules">1.8 Where Does Business Logic Live in UNIVA Modules?</h2>
+<p>Because UNIVA modules <strong>never ship arbitrary executable server code directly inside the module package</strong>, business logic is split cleanly across <strong>3 controlled channels</strong>:</p>
+<pre class="mermaid"><code>flowchart TD
+    Root(["&lt;i class='fa-solid fa-brain'&gt;&lt;/i&gt; WHERE DOES BUSINESS LOGIC LIVE?"])
+
+    Root --&gt; C1(["&lt;i class='fa-solid fa-network-wired'&gt;&lt;/i&gt; 1. Server Integration Functions&lt;br/&gt;&lt;code&gt;functions/exposes.json&lt;/code&gt; &amp; &lt;code&gt;uses.json&lt;/code&gt;&lt;br/&gt;Host-mediated contracts"])
+    Root --&gt; C2(["&lt;i class='fa-solid fa-shield-halved'&gt;&lt;/i&gt; 2. Sandboxed Lifecycle Hooks&lt;br/&gt;&lt;code&gt;hooks/hooks.json&lt;/code&gt;&lt;br/&gt;5.0s / 128MB isolated execution"])
+    Root --&gt; C3(["&lt;i class='fa-solid fa-window-maximize'&gt;&lt;/i&gt; 3. Client IFrame Widgets&lt;br/&gt;&lt;code&gt;views/assets/&lt;/code&gt;&lt;br/&gt;Sandboxed postMessage protocol"])
+
+    style Root fill:#0f172a,stroke:#38bdf8,stroke-width:2px,color:#ffffff
+    style C1 fill:#eff6ff,stroke:#3b82f6,stroke-width:2px,color:#1e3a8a
+    style C2 fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f
+    style C3 fill:#f5f3ff,stroke:#8b5cf6,stroke-width:2px,color:#4c1d95</code></pre>
+<ol>
+<li><strong>Host Integration Functions (<code>functions/exposes.json</code> &amp; <code>integrations/uses.json</code>)</strong>:</li>
+<li>For host-mediated calculations, data transformations, or cross-module logic (e.g. <code>invoicing.get_invoice_total</code>).</li>
+<li>Defined as schema-validated JSON contracts in <code>exposes.json</code>.</li>
+<li>Implementation handlers are registered in the host platform's <code>FunctionRegistry</code> and called safely with schema validation.</li>
+<li><strong>Event Lifecycle Hooks (<code>hooks/hooks.json</code>)</strong>:</li>
+<li>For installation, upgrade, or uninstallation events (e.g. seeding default data).</li>
+<li>Executed inside isolated process sandboxes with resource limits (5.0s timeout, 128MB memory limit).</li>
+<li><strong>Interactive Client View Logic (<code>views/assets/widget.js</code>)</strong>:</li>
+<li>For complex UI interactions, custom charts, or multi-step form wizards.</li>
+<li>Executed inside sandboxed <code>&lt;iframe sandbox="allow-scripts"&gt;</code> containers communicating via <code>postMessage</code>.</li>
+</ol>
+<hr />
+<h2 id="command-line-code-reference">Command Line Code Reference</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Command line to run tests verifying identifier validation regex</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">python</span> <span class="n">-c</span> <span class="s2">&quot;from assert_safe import assert_safe_identifier; print(assert_safe_identifier(&#39;valid_name_123&#39;))&quot;</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.indexes", "navigation.sections", "navigation.expand", "navigation.top", "toc.integrate", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10/dist/mermaid.min.js"></script>
+      
+        <script src="../javascripts/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>
